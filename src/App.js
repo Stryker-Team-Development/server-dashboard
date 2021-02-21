@@ -10,17 +10,17 @@ function App() {
 
   const [serverStatus, setServerStatus] = useState({
     ip: '127.0.0.1',
-    isOn: false
+    isOn: "stopped"
   });
 
-  const SERVER_STATUS_LAMBDA_URL = 'http://localhost:5000'
+  const SERVER_STATUS_LAMBDA_URL = 'https://ljf7a447tk.execute-api.us-east-1.amazonaws.com/prod/server'
   const SERVER_TOGGLE_URL = 'http://localhost:5000'
 
   useEffect(() => {
     axios.get(SERVER_STATUS_LAMBDA_URL).then((response) => {
       setServerStatus({
-        ip: response.data.serverUrl,
-        isOn: response.data.isOn
+        ipublic_ipp: response.data.public_ip,
+        state: response.data.state
       })
     });
   }, [serverStatus]);
