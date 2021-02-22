@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.mono-kakos-paragraph { 
+  margin-top: 50px;
+  padding: 100px;
+  width: 20;
+  margin: 0 auto; 
+}
+
+.button {
+  margin: 50px;
+}
+
+.server-status { 
+  padding: 70px;
+  width: 18rem;
+  margin: 0 auto;
+  white-space: pre-line;
+  display: flex;
+}
