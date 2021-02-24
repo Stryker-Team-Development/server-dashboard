@@ -26,4 +26,4 @@ jobs:
         aws-region: us-east-1
 
     - name: Upload build/ folder into bucket
-      run: aws s3 sync build s3://stryker-valheim-dashboard
+    -  run: aws s3 sync build s3://stryker-valheim-dashboard
