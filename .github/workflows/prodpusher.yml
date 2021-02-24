@@ -29,7 +29,7 @@ jobs:
         aws-region: us-east-1
 
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync build s3://stryker-valheim-dashboard
+      run: aws s3 sync build s3://${{ secrets.AWS_BUCKET_NAME }}
 
     - name: Create invalidation in Cloudfront
       run: |
