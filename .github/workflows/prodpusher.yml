@@ -16,7 +16,7 @@ jobs:
         node-version: 12.x
         
     - name: Build project
-      run: npm run build --if-present
+    - run: npm run build --if-present
 
     - uses: aws-actions/configure-aws-credentials@v1
     - name: Configure AWS Credentials
