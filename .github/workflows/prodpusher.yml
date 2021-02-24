@@ -3,8 +3,8 @@ name: Prod-Pusher
 on:
   push:
     branches: [ master ]
-    paths-ignore:
-      - '.github/**'
+    # paths-ignore:
+    #   - '.github/**'
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
     - name: Build static site
       run: npm run-script build
       env:
-        REACT_APP_SERVER_STATUS_URL: ${{ secrets.AWS_LAMBDA_URL }}
+        REACT_APP_SERVER_STATUS_URL: ${{ secrets.REACT_APP_SERVER_STATUS_URL }}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
