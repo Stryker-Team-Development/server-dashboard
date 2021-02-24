@@ -3,6 +3,8 @@ name: Prod-Pusher
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   build:
