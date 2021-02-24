@@ -1,10 +1,45 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Button } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 import { useState } from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 import Loader from 'react-loader-spinner';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    serverStatus: { 
+        padding: '70px',
+        width: '18rem',
+        margin: '0 auto',
+        whiteSpace: 'pre-line',
+        display: 'flex',
+      },
+    button: {
+        margin: '50px',
+    },
+    statusText: {
+        textAlign: 'center',
+        fontSize: 18,
+        margin: 'auto'
+    },
+    card: {
+        margin: 'auto',
+        maxWidth: 720,
+        height: 405,
+        zIndex: 1,
+        marginTop: 60,
+        marginBottom: 60,
+        border: '1px solid #d4d4d4',
+        borderRadius: 0,
+        webkitBoxShadow: '0 2px 4px 1px rgba(0,0,0,0.15);',
+        mozBoxShadow: '0 2px 4px 1px rgba(0,0,0,0.15);',
+        boxShadow: '0 2px 4px 1px rgba(0,0,0,0.15);'
+      }
+  }));
 
 export default function ServerStatus() {
+
+    const classes = useStyles();
 
     const [serverStatus, setServerStatus] = useState({
         public_ip: null,
@@ -64,28 +99,31 @@ export default function ServerStatus() {
 
     return (
         <div>
-            <div>Valheim Server Status</div>
-            <Card className='server-status' style={{ backgroundColor: serverStatus.color }}>
-                {serverStatus.loading ?
-                    <Loader type="Circles" color="#000000" height={80} width={80} /> :
-                    <div>
-                        {serverStatus.state.toUpperCase()}
-                        <br />
-                        {isServerPendingOrStopping(serverStatus.state) ? "Refrescate esa vaina a ver si ya" : serverStatus.public_ip}
-                    </div>
-                }
+            <Card className={classNames(classes.card)}>
+                <h1 className={classNames(classes.title)}>Valheim Server Status</h1>
+                <Card className={classNames(classes.serverStatus)} style={{ backgroundColor: serverStatus.color }}>
+                    {serverStatus.loading ?
+                        <Loader type="Circles" color="#000000" height={35} width={35} style={{ margin: 'auto' }} /> :
+                        <div className={classNames(classes.statusText)}>
+                            {serverStatus.state.toUpperCase()}
+                            <br />
+                            {isServerPendingOrStopping(serverStatus.state) ? "Refrescate esa vaina a ver si ya" : serverStatus.public_ip}
+                        </div>
+                    }
+                </Card>
+                <Button className={classNames(classes.button)}
+                    variant='contained'
+                    color='primary'
+                    onClick={() => toggleServerState()}
+                    disabled={isServerPendingOrStopping(serverStatus.state) || serverStatus.loading  === true ? true : false}>
+                    {isServerStopped(serverStatus.state) ? 'Prender' : 'Apagar'}
+                </Button>{' '}
+                <Button className={classNames(classes.button)}
+                    variant='contained'
+                    onClick={() => getServerStatus()}>
+                    Refrescar
+                </Button>{' '}
             </Card>
-            <Button className='button'
-                variant='primary'
-                onClick={() => toggleServerState()}
-                disabled={isServerPendingOrStopping(serverStatus.state) === true ? true : false}>
-                {isServerStopped(serverStatus.state) ? 'Prender' : 'Apagar'}
-            </Button>{' '}
-            <Button className='button'
-                variant='success'
-                onClick={() => getServerStatus()}>
-                Refrescar
-            </Button>{' '}
         </div>
     );
 }
