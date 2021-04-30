@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 import Loader from 'react-loader-spinner';
@@ -41,14 +41,18 @@ export default function ServerStatus() {
 
     const classes = useStyles();
 
+    const SERVER_STATUS_URL = process.env.REACT_APP_SERVER_STATUS_URL;
+
     const [serverStatus, setServerStatus] = useState({
         public_ip: null,
-        state: 'Refrescalo!!',
+        state: '',
         loading: false,
-        color: 'yellow'
+        color: ''
     });
-
-    const SERVER_STATUS_URL = process.env.REACT_APP_SERVER_STATUS_URL;
+    
+    useEffect(() => {
+        getServerStatus();
+    }, []);
 
     function toggleServerState() {
         const valueToSet = isServerStopped(serverStatus.state) ? 'on' : 'off';
