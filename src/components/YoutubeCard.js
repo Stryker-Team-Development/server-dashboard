@@ -23,7 +23,7 @@ export default function YoutubeCard() {
 
     const classes = useStyles();
 
-    let index = Math.floor(Math.random() * 11);
+    let index = Math.floor(Math.random() * 12);
 
     return (
         <Card className={classNames(classes.card)}>
