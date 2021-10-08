@@ -35,7 +35,9 @@ function LandingPage() {
             <Container maxWidth="false" >
                 <Grid container spacing={1} justify="center" alignItems="center">
                     <Grid item xs={7}>
-                        <iframe src="https://discord.com/widget?id=254270297899925514&theme=dark"
+                        <iframe
+                            title="discord-iframe" 
+                            src="https://discord.com/widget?id=254270297899925514&theme=dark"
                             width="250"
                             height="390"
                             allowtransparency="true"

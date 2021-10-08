@@ -1,47 +1,30 @@
-import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
 import Container from '@mui/material/Container';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Icon from '@mui/material/Icon';
-import {
-    Link
-} from "react-router-dom";
+import CampaignsList from '../components/CampaignsList';
+import BackButton from '../components/BackButton';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function DnDPage() {
+
+    const [campaigns, setCampaigns] = useState([]);
+    const [isFirstCampaignFetch, setIsFirstCampaignFetch] = useState(true);
+
+    useEffect(() => {
+        async function getCampaigns() {
+            // const getCampaignsResult = await axios.get('localhost:3002/campaigns');
+            setCampaigns([{id: 1, name: "Another campaign"}]);
+            setIsFirstCampaignFetch(false);
+          }
+          if (isFirstCampaignFetch) getCampaigns()
+    }, [campaigns]);
+
     return (
         <div>
-            <Link to='/'>
-                <Button color='primary'>
-                    {"< Go back"}
-                </Button>
-            </Link>
+            <BackButton/>
 
             <Container>
                 <h2>Campaigns</h2>
-                
-                <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="Lost Mines of Phandelver" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="The next Adventure!" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <Icon sx={{ fontSize: 30, marginRight: 1  }}>add_circle</Icon>
-                                <ListItemText primary="Add new Campaign!" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </Box>
+                <CampaignsList campaigns={campaigns} setCampaigns={setCampaigns}/>
             </Container>
         </div>
     )
