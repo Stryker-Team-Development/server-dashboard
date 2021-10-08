@@ -8,8 +8,6 @@ function AddCampaignForm(props) {
     const [newCampaignDescription, setNewCampaignDescription] = useState("")
     const [newCampaignImageUrl, setNewCampaignImageUrl] = useState("")
 
-    useEffect(() => {}, props.setCampaigns)
-
     async function addNewCampaign() {
         // const createNewCampaignResult = await axios.post('localhost:3002/campaigns', {
         //     name: newCampaignName,
@@ -17,12 +15,12 @@ function AddCampaignForm(props) {
         //     imageUrl: newCampaignImageUrl
         // })
         props.campaigns.push({
-            id: 2, //newCampaignName
+            id: 2, 
+            name: 'Test', //newCampaignName
             description: 'Epic description', //newCampaignDescription
             imageUrl: 'Awesome Image Url' //newCampaignImageUrl
         })
-        console.log(props.campaigns)
-        props.setCampaigns(props.campaigns);
+        props.setCampaigns([...props.campaigns]);
     }
 
     return (
