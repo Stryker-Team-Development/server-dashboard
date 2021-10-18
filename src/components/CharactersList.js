@@ -9,9 +9,9 @@ import AddCampaignForm from './AddCampaignForm';
 import { useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 
-function CampaignsList(props) {
+function CharactersList(props) {
 
-    const [showNewCampaignForm, setShowNewCampaignForm] = useState(false);
+    const [showNewCharacterForm, setShowNewCharacterForm] = useState(false);
     let history = useHistory();
 
     return (
@@ -21,20 +21,20 @@ function CampaignsList(props) {
                     <Box sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
                         <List>
                             {
-                                props.campaigns.map(campaign =>
-                                    <ListItem key={campaign.id} disablePadding>
-                                        <Link to={`${history.location.pathname}/${campaign.id}`}>
+                                props.characters.map(character =>
+                                    <ListItem key={character.id} disablePadding>
+                                        <Link to={`${history.location.pathname}/characters/${character.id}`}>
                                             <ListItemButton>
-                                                <ListItemText primary={campaign.name} />
+                                                <ListItemText primary={character.name} />
                                             </ListItemButton>
                                         </Link>
                                     </ListItem>
                                 )
                             }
                             <ListItem>
-                                <ListItemButton onClick={() => setShowNewCampaignForm(!showNewCampaignForm)}>
+                                <ListItemButton onClick={() => setShowNewCharacterForm(!showNewCharacterForm)}>
                                     <Icon sx={{ fontSize: 30, marginRight: 1 }}>add_circle</Icon>
-                                    <ListItemText primary="Add new Campaign!" />
+                                    <ListItemText primary="Add new character to the campaign!" />
                                 </ListItemButton>
                             </ListItem>
                         </List>
@@ -43,7 +43,7 @@ function CampaignsList(props) {
                 <Grid item xs={5}>
                     <Box>
                         {
-                            showNewCampaignForm ? <AddCampaignForm campaigns={props.campaigns} setCampaigns={props.setCampaigns} /> : null
+                            showNewCharacterForm ? <AddCampaignForm characters={props.characters} setCharacters={props.setCharacters} /> : null
                         }
                     </Box>
                 </Grid>
@@ -52,4 +52,4 @@ function CampaignsList(props) {
     )
 }
 
-export default CampaignsList;
+export default CharactersList;

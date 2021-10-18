@@ -1,16 +1,16 @@
 import { Button } from '@mui/material';
 import {
-    Link
+    useHistory
 } from "react-router-dom";
 
 function BackButton() {
+    let history = useHistory();
+
     return (
-        <Link to='/'>
-                <Button color='primary'>
-                    {"< Go back"}
-                </Button>
-            </Link>
-    )
+        <>
+          <Button onClick={() => history.goBack()}>Back</Button>
+        </>
+    );
 }
 
 export default BackButton;

@@ -4,9 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import {
-    Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     mainCard: {

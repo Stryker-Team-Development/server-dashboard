@@ -12,7 +12,7 @@ function DnDPage() {
     useEffect(() => {
         async function getCampaigns() {
             // const getCampaignsResult = await axios.get('localhost:3002/campaigns');
-            setCampaigns([{id: 1, name: "Another campaign"}]);
+            setCampaigns([{id: 1, name: "Another campaign"}, {id: 2, name: "Second campaign"}]);
             setIsFirstCampaignFetch(false);
           }
           if (isFirstCampaignFetch) getCampaigns()
