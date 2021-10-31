@@ -1,5 +1,5 @@
-import ServerStatus from '../components/ServerStatus';
-import YoutubeCard from '../components/YoutubeCard';
+import ServerStatus from '../components/dashboard/ServerStatus';
+import YoutubeCard from '../components/dashboard/YoutubeCard';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';

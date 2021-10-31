@@ -1,7 +1,7 @@
 import { InputLabel, Input, Box, Button } from '@mui/material';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { API_HOST } from '../util/Constants'
+import { API_HOST } from '../../util/Constants'
 
 function AddCharacterForm(props) {
 

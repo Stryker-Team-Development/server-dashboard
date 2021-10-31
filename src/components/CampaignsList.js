@@ -5,7 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Icon from '@mui/material/Icon';
 import Grid from '@mui/material/Grid';
-import AddCampaignForm from './AddCampaignForm';
+import AddCampaignForm from './forms/AddCampaignForm';
 import { useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 

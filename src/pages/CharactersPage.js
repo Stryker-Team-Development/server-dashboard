@@ -14,8 +14,9 @@ function CharactersPage () {
 
     useEffect(() => {
         async function getCharacters() {
-            const getCharactersResult = await axios.get(`${API_HOST}/campaigns/${campaignId}/characters`);
-            setCharacters(...getCharactersResult.data);
+            // const getCharactersResult = await axios.get(`${API_HOST}/campaigns/${campaignId}/characters`);
+            setCharacters([{id: 1, name: "Danforth Redeye"}, {id: 2, name: "Alferan"}]);
+            // setCharacters(...getCharactersResult.data);
             setIsFirstCharacter(false);
           }
           if (isFirstCharacter) getCharacters()
