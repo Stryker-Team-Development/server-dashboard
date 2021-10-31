@@ -1,24 +1,25 @@
 import { InputLabel, Input, Box, Button } from '@mui/material';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { API_HOST } from '../util/Constants'
 
 function AddCampaignForm(props) {
 
-    const [newCampaignName, setNewCampaignName] = useState("")
-    const [newCampaignDescription, setNewCampaignDescription] = useState("")
-    const [newCampaignImageUrl, setNewCampaignImageUrl] = useState("")
+    const [title, setNewCampaignTitle] = useState("")
+    const [description, setNewCampaignDescription] = useState("")
+    const [imageUrl, setNewCampaignImageUrl] = useState("")
 
     async function addNewCampaign() {
-        // const createNewCampaignResult = await axios.post('localhost:3002/campaigns', {
-        //     name: newCampaignName,
-        //     description: newCampaignDescription,
-        //     imageUrl: newCampaignImageUrl
-        // })
+        const createNewCampaignResult = await axios.post(`${API_HOST}/campaigns`, {
+            title,
+            description,
+            imageUrl
+        })
         props.campaigns.push({
-            id: 2, 
-            name: 'Test', //newCampaignName
-            description: 'Epic description', //newCampaignDescription
-            imageUrl: 'Awesome Image Url' //newCampaignImageUrl
+            id: createNewCampaignResult.data.id, 
+            title: createNewCampaignResult.data.title,
+            description: createNewCampaignResult.data.description, 
+            imageUrl: createNewCampaignResult.data.imageUrl 
         })
         props.setCampaigns([...props.campaigns]);
     }
@@ -36,8 +37,8 @@ function AddCampaignForm(props) {
                 noValidate
                 autoComplete="off"
             >
-                <InputLabel htmlFor="campaign-name-input">Campaign Name</InputLabel>
-                <Input id="campaign-name-input" onChange={(event) => setNewCampaignName(event.target.value)} />
+                <InputLabel htmlFor="campaign-title-input">Campaign Title</InputLabel>
+                <Input id="campaign-title-input" onChange={(event) => setNewCampaignTitle(event.target.value)} />
                 <InputLabel htmlFor="description-input">Description</InputLabel>
                 <Input id="description=input" onChange={(event) => setNewCampaignDescription(event.target.value)} />
                 <InputLabel htmlFor="image-url-input">Image URL</InputLabel>

@@ -25,7 +25,7 @@ function CampaignsList(props) {
                                     <ListItem key={campaign.id} disablePadding>
                                         <Link to={`${history.location.pathname}/${campaign.id}`}>
                                             <ListItemButton>
-                                                <ListItemText primary={campaign.name} />
+                                                <ListItemText primary={campaign.title} />
                                             </ListItemButton>
                                         </Link>
                                     </ListItem>

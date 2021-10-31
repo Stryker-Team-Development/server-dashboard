@@ -1,6 +1,7 @@
 import { InputLabel, Input, Box, Button } from '@mui/material';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { API_HOST } from '../util/Constants'
 
 function AddCharacterForm(props) {
 
@@ -8,17 +9,17 @@ function AddCharacterForm(props) {
     const [newCharacterDescription, setNewCharacterDescription] = useState("")
     const [newCharacterImageUrl, setNewCharacterImageUrl] = useState("")
 
-    async function addnewCharacter() {
-        // const createnewCharacterResult = await axios.post('localhost:3002/characters', {
-        //     name: newCharacterName,
-        //     description: newCharacterDescription,
-        //     imageUrl: newCharacterImageUrl
-        // })
+    async function addNewCharacter() {
+        const createnewCharacterResult = await axios.post(`${API_HOST}/characters`, {
+            name: newCharacterName,
+            description: newCharacterDescription,
+            imageUrl: newCharacterImageUrl
+        })
         props.characters.push({
-            id: 2, 
-            name: 'Test', //newCharacterName
-            description: 'Epic description', //newCharacterDescription
-            imageUrl: 'Awesome Image Url' //newCharacterImageUrl
+            id: createnewCharacterResult.id, 
+            name: createnewCharacterResult.name,
+            description: createnewCharacterResult.description, 
+            imageUrl: createnewCharacterResult.imageUrl
         })
         props.setCampaigns([...props.characters]);
     }
@@ -38,12 +39,12 @@ function AddCharacterForm(props) {
             >
                 <h2>BIG WIP<h2/>
                 <InputLabel htmlFor="campaign-name-input">Campaign Name</InputLabel>
-                <Input id="campaign-name-input" onChange={(event) => setnewCharacterName(event.target.value)} />
+                <Input id="campaign-name-input" onChange={(event) => setNewCharacterName(event.target.value)} />
                 <InputLabel htmlFor="description-input">Description</InputLabel>
-                <Input id="description=input" onChange={(event) => setnewCharacterDescription(event.target.value)} />
+                <Input id="description=input" onChange={(event) => setNewCharacterDescription(event.target.value)} />
                 <InputLabel htmlFor="image-url-input">Image URL</InputLabel>
-                <Input id="image-url-input" onChange={(event) => setnewCharacterImageUrl(event.target.value)} />
-                <Button variant='contained' color='primary' onClick={addnewCharacter}>Create!</Button>
+                <Input id="image-url-input" onChange={(event) => setNewCharacterImageUrl(event.target.value)} />
+                <Button variant='contained' color='primary' onClick={addNewCharacter}>Create!</Button>
             </Box>
         </>
     )

@@ -2,6 +2,8 @@ import Container from '@mui/material/Container';
 import BackButton from '../components/BackButton';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { API_HOST } from '../util/Constants'
 
 function CharacterDetail() {
 
@@ -9,7 +11,7 @@ function CharacterDetail() {
 
     useEffect(() => {
         async function getCharacterInfo() {
-            // const getCampaignsResult = await axios.get('localhost:3002/campaigns/:campaignId/character/:characterId');
+            const getCampaignsResult = await axios.get(`${API_HOST}/campaigns/${campaignId}/character/${characterId}`);
         }
     }, []);
 

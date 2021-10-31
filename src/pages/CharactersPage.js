@@ -3,6 +3,8 @@ import BackButton from '../components/BackButton';
 import CharactersList from '../components/CharactersList'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
+import axios from 'axios';
+import { API_HOST } from '../util/Constants'
 
 function CharactersPage () {
 
@@ -12,8 +14,8 @@ function CharactersPage () {
 
     useEffect(() => {
         async function getCharacters() {
-            // const getCampaignsResult = await axios.get('localhost:3002/campaigns/:campaignId/characters');
-            setCharacters([{id: 1, name: "Danforth Redeye"}, {id: 2, name: "Alferan"}]);
+            const getCharactersResult = await axios.get(`${API_HOST}/campaigns/${campaignId}/characters`);
+            setCharacters(...getCharactersResult.data);
             setIsFirstCharacter(false);
           }
           if (isFirstCharacter) getCharacters()

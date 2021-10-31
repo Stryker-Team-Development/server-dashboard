@@ -3,6 +3,7 @@ import CampaignsList from '../components/CampaignsList';
 import BackButton from '../components/BackButton';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_HOST } from '../util/Constants'
 
 function DnDPage() {
 
@@ -11,8 +12,8 @@ function DnDPage() {
 
     useEffect(() => {
         async function getCampaigns() {
-            // const getCampaignsResult = await axios.get('localhost:3002/campaigns');
-            setCampaigns([{id: 1, name: "Another campaign"}, {id: 2, name: "Second campaign"}]);
+            const getCampaignsResult = await axios.get(`${API_HOST}/campaigns`);
+            setCampaigns([...getCampaignsResult.data]);
             setIsFirstCampaignFetch(false);
           }
           if (isFirstCampaignFetch) getCampaigns()
