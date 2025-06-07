@@ -104,7 +104,7 @@ export default function ServerStatus() {
     return (
         <div>
             <Card className={classNames(classes.card)}>
-                <h1 className={classNames(classes.title)}>Valheim Server Status</h1>
+                <h1 className={classNames(classes.title)}>Minecraft Server Status</h1>
                 <Card className={classNames(classes.serverStatus)} style={{ backgroundColor: serverStatus.color }}>
                     {serverStatus.loading ?
                         <Loader type="Circles" color="#000000" height={35} width={35} style={{ margin: 'auto' }} /> :
