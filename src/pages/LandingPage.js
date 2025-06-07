@@ -42,13 +42,13 @@ function LandingPage() {
                             frameborder="0"
                             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" />
                     </Grid>
-                    <Grid item xs={3}>
+                    {/* <Grid item xs={3}>
                         <Link to='/DnD'>
                             <Button variant='contained' color='primary' style={{ padding: '75px' }}>
                                 Dungeons and Dragons
                             </Button>
                         </Link>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Container>
         </div>
