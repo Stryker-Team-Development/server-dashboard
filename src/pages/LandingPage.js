@@ -1,58 +1,35 @@
 import ServerStatus from '../components/ServerStatus';
 import YoutubeCard from '../components/YoutubeCard';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import { Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-    mainCard: {
-        margin: '0 auto',
-        whiteSpace: 'pre-line',
-        display: 'flex',
-    }
-}));
+import Box from '@mui/joy/Box';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
 
 function LandingPage() {
-
-    const classes = useStyles();
-
     return (
-        <div className='App'>
-            <Container maxWidth="lg" >
-                <Grid container spacing={3} justify="center" alignItems="center">
-                    <Grid item xs={5}>
-                        <ServerStatus className={classes.mainCard} />
-                    </Grid>
-                    <Grid item xs={7}>
-                        <YoutubeCard className={classes.mainCard} />
-                    </Grid>
-                </Grid>
-            </Container>
-            <Container maxWidth="false" >
-                <Grid container spacing={1} justify="center" alignItems="center">
-                    <Grid item xs={7}>
-                        <iframe
-                            title="discord-iframe" 
-                            src="https://discord.com/widget?id=254270297899925514&theme=dark"
-                            width="250"
-                            height="390"
-                            allowtransparency="true"
-                            frameborder="0"
-                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" />
-                    </Grid>
-                    {/* <Grid item xs={3}>
-                        <Link to='/DnD'>
-                            <Button variant='contained' color='primary' style={{ padding: '75px' }}>
-                                Dungeons and Dragons
-                            </Button>
-                        </Link>
-                    </Grid> */}
-                </Grid>
-            </Container>
-        </div>
-    )
+        <Sheet sx={{ minHeight: '100vh', bgcolor: '#23272f', p: 4 }}>
+            <Typography level="h1" sx={{ mb: 4, color: '#f5f6fa', textAlign: 'center', fontWeight: 700 }}>
+                Minecraft Server Dashboard
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4, mb: 4, flexWrap: 'wrap' }}>
+                <ServerStatus />
+                <YoutubeCard />
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Sheet variant="outlined" sx={{ bgcolor: '#2c2f36', borderRadius: 8, p: 2, minWidth: 320 }}>
+                    <iframe
+                        title="discord-iframe"
+                        src="https://discord.com/widget?id=254270297899925514&theme=dark"
+                        width="350"
+                        height="390"
+                        allowtransparency="true"
+                        frameBorder="0"
+                        style={{ border: 0, borderRadius: 8 }}
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                    />
+                </Sheet>
+            </Box>
+        </Sheet>
+    );
 }
 
 export default LandingPage;

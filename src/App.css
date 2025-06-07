@@ -1,5 +1,17 @@
+body, html, #root {
+  min-height: 100vh;
+  background: #23272f;
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #f5f6fa;
+}
+
 .App {
   text-align: center;
+  min-height: 100vh;
+  background: #23272f;
+  color: #f5f6fa;
 }
 
 .App-logo {
@@ -36,4 +48,3 @@
     transform: rotate(360deg);
   }
 }
-

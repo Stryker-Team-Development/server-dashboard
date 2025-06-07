@@ -1,96 +1,54 @@
-import { Button } from '@mui/material';
-import Card from '@mui/material/Card';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Button from '@mui/joy/Button';
+import CircularProgress from '@mui/joy/CircularProgress';
+import Box from '@mui/joy/Box';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import classNames from 'classnames';
-import Loader from 'react-loader-spinner';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles((theme) => ({
-    serverStatus: { 
-        padding: '70px',
-        width: '18rem',
-        margin: '0 auto',
-        whiteSpace: 'pre-line',
-        display: 'flex',
-      },
-    button: {
-        margin: '50px',
-    },
-    statusText: {
-        textAlign: 'center',
-        fontSize: 18,
-        margin: 'auto'
-    },
-    card: {
-        margin: 'auto',
-        maxWidth: 720,
-        height: 405,
-        zIndex: 1,
-        marginTop: 60,
-        marginBottom: 60,
-        border: '1px solid #d4d4d4',
-        borderRadius: 0,
-        webkitBoxShadow: '0 2px 4px 1px rgba(0,0,0,0.15);',
-        mozBoxShadow: '0 2px 4px 1px rgba(0,0,0,0.15);',
-        boxShadow: '0 2px 4px 1px rgba(0,0,0,0.15);'
-      }
-  }));
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 export default function ServerStatus() {
-
-    const classes = useStyles();
-
     const SERVER_STATUS_URL = process.env.REACT_APP_SERVER_STATUS_URL;
-
     const [serverStatus, setServerStatus] = useState({
         public_ip: null,
         state: '',
         loading: false,
-        color: ''
+        color: 'neutral',
     });
-    
+
     useEffect(() => {
         getServerStatus();
+        // eslint-disable-next-line
     }, []);
 
     function toggleServerState() {
         const valueToSet = isServerStopped(serverStatus.state) ? 'on' : 'off';
-        setServerStatus({
-            ...serverStatus,
-            loading: true
-        });
-        axios.post(SERVER_STATUS_URL + '/state', {
-            state: valueToSet
-        }).then((response) => response.data.success).then(success => {
-            if (success) {
-                getServerStatus();
-            }
-        });
+        setServerStatus({ ...serverStatus, loading: true });
+        axios.post(SERVER_STATUS_URL + '/state', { state: valueToSet })
+            .then((response) => response.data.success)
+            .then(success => { if (success) getServerStatus(); })
+            .catch((error) => { console.error('Error toggling server state:', error); });
     }
 
     function getServerStatus() {
-        setServerStatus({
-            loading: true
-        });
-        axios.get(SERVER_STATUS_URL).then((response) => {
-            setServerStatus({
-                public_ip: response.data.public_ip,
-                state: response.data.state,
-                loading: false,
-                color: getStatusColor(response.data.state)
-            });
-        });
+        setServerStatus({ loading: true });
+        axios.get(SERVER_STATUS_URL)
+            .then((response) => {
+                setServerStatus({
+                    public_ip: response.data.public_ip,
+                    state: response.data.state,
+                    loading: false,
+                    color: getStatusColor(response.data.state),
+                });
+            })
+            .catch((error) => { console.error('Error getting server status:', error); });
     }
 
     function getStatusColor(state) {
-        if (isServerStopped(state)) {
-           return 'red';
-        } else if (isServerPendingOrStopping(state)) {
-            return 'yellow';
-        } else {
-           return 'green';
-        }
+        if (isServerStopped(state)) return 'danger';
+        if (isServerPendingOrStopping(state)) return 'warning';
+        return 'success';
     }
 
     function isServerStopped(state) {
@@ -102,32 +60,46 @@ export default function ServerStatus() {
     }
 
     return (
-        <div>
-            <Card className={classNames(classes.card)}>
-                <h1 className={classNames(classes.title)}>Minecraft Server Status</h1>
-                <Card className={classNames(classes.serverStatus)} style={{ backgroundColor: serverStatus.color }}>
-                    {serverStatus.loading ?
-                        <Loader type="Circles" color="#000000" height={35} width={35} style={{ margin: 'auto' }} /> :
-                        <div className={classNames(classes.statusText)}>
-                            {serverStatus.state.toUpperCase()}
-                            <br />
-                            {isServerPendingOrStopping(serverStatus.state) ? "Refrescate esa vaina a ver si ya" : serverStatus.public_ip}
-                        </div>
-                    }
-                </Card>
-                <Button className={classNames(classes.button)}
-                    variant='contained'
-                    color='primary'
-                    onClick={() => toggleServerState()}
-                    disabled={isServerPendingOrStopping(serverStatus.state) || serverStatus.loading  === true ? true : false}>
-                    {isServerStopped(serverStatus.state) ? 'Prender' : 'Apagar'}
-                </Button>{' '}
-                <Button className={classNames(classes.button)}
-                    variant='contained'
-                    onClick={() => getServerStatus()}>
-                    Refrescar
-                </Button>{' '}
+        <Card variant="outlined" sx={{ minWidth: 340, maxWidth: 400, bgcolor: '#2c2f36', borderRadius: 4, boxShadow: '0 2px 8px 0 #18191c', p: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography level="h2" sx={{ mb: 2, color: '#f5f6fa', fontWeight: 600 }}>
+                Server Status
+            </Typography>
+            <Card variant="soft" color={serverStatus.color} sx={{ width: '100%', minHeight: 80, mb: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, bgcolor: '#23272f' }}>
+                {serverStatus.loading ? (
+                    <CircularProgress size="lg" color="neutral" />
+                ) : (
+                    <Box sx={{ textAlign: 'center', width: '100%' }}>
+                        <Typography level="h4" sx={{ fontWeight: 500, color: '#f5f6fa' }}>
+                            {serverStatus.state ? serverStatus.state.toUpperCase() : 'UNKNOWN'}
+                        </Typography>
+                        <Typography level="body2" sx={{ color: '#b0b3b8' }}>
+                            {isServerPendingOrStopping(serverStatus.state)
+                                ? 'Refreshing...'
+                                : serverStatus.public_ip}
+                        </Typography>
+                    </Box>
+                )}
             </Card>
-        </div>
+            <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+                <Button
+                    variant="solid"
+                    color={isServerStopped(serverStatus.state) ? 'success' : 'danger'}
+                    startDecorator={<PowerSettingsNewIcon />}
+                    onClick={toggleServerState}
+                    disabled={isServerPendingOrStopping(serverStatus.state) || serverStatus.loading}
+                >
+                    {isServerStopped(serverStatus.state) ? 'Start' : 'Stop'}
+                </Button>
+                <Button
+                    variant="outlined"
+                    color="neutral"
+                    startDecorator={<RefreshIcon />}
+                    onClick={getServerStatus}
+                    disabled={serverStatus.loading}
+                >
+                    Refresh
+                </Button>
+            </Box>
+        </Card>
     );
 }
