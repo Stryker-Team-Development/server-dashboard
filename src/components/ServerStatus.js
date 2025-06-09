@@ -11,7 +11,7 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-export default function ServerStatus() {
+export default function ServerStatus({ sx = {} }) {
     const SERVER_STATUS_URL = process.env.REACT_APP_SERVER_STATUS_URL;
     const [serverStatus, setServerStatus] = useState({
         public_ip: null,
@@ -78,7 +78,21 @@ export default function ServerStatus() {
     }
 
     return (
-        <Card variant="outlined" sx={{ minWidth: 340, maxWidth: 400, bgcolor: '#2c2f36', borderRadius: 4, boxShadow: '0 2px 8px 0 #18191c', p: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Card 
+            variant="outlined" 
+            sx={{ 
+                minWidth: 340,
+                maxWidth: 400,
+                bgcolor: '#2c2f36',
+                borderRadius: 4,
+                boxShadow: '0 2px 8px 0 #18191c',
+                p: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                ...sx
+            }}
+        >
             <Typography level="h2" sx={{ mb: 2, color: '#f5f6fa', fontWeight: 600 }}>
                 Server Status
             </Typography>

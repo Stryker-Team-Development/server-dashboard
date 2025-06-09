@@ -2,10 +2,24 @@ import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 
-export default function YoutubeCard() {
+export default function YoutubeCard({ sx = {} }) {
   let index = Math.floor(Math.random() * 12);
   return (
-    <Card variant="outlined" sx={{ minWidth: 340, maxWidth: 400, bgcolor: '#2c2f36', borderRadius: 4, boxShadow: '0 2px 8px 0 #18191c', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Card 
+      variant="outlined" 
+      sx={{ 
+        minWidth: 340, 
+        maxWidth: 400, 
+        bgcolor: '#2c2f36', 
+        borderRadius: 4, 
+        boxShadow: '0 2px 8px 0 #18191c', 
+        p: 2, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center',
+        ...sx
+      }}
+    >
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', p: 0, m: 0 }}>
         <iframe
           width="350"
